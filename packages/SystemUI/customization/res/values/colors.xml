@@ -19,4 +19,5 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <color name="clock_dot_color">#d71921</color>
     <color name="clock_highlight_color">#ffc700</color>
+    <color name="oneplus_red">#fff50514</color>
 </resources>

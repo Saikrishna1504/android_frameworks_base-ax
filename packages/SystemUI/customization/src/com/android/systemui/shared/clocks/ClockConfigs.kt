@@ -129,6 +129,53 @@ object ClockConfigs {
             Align.CENTER,
             customHeightRes = R.dimen.large_clock_height,
             customDateMarginTop = R.dimen.large_clock_date_margin_top
+        ),
+        "NTStackedClockView" to ClockStyleConfig(
+            Position.ABOVE,
+            Align.CENTER
+        ),
+        "NTStackedLargeClockView" to ClockStyleConfig(
+            Position.BELOW,
+            Align.CENTER,
+            customHeightRes = R.dimen.clock_stacked_large_height
+        ),
+        "NTStaggeredClockView" to ClockStyleConfig(
+            Position.ABOVE,
+            Align.CENTER
+        ),
+        "NTStaggeredLargeClockView" to ClockStyleConfig(
+            Position.BELOW,
+            Align.CENTER,
+            customHeightRes = R.dimen.large_clock_height
+        ),
+        "NTOnePlusClockView" to ClockStyleConfig(
+            Position.ABOVE,
+            Align.LEFT,
+            visible = false
+        ),
+        "NTOnePlusLargeClockView" to ClockStyleConfig(
+            Position.BELOW,
+            Align.CENTER,
+            visible = false,
+            customHeightRes = R.dimen.clock_stacked_large_height
+        ),
+        "NTMagazineClockView" to ClockStyleConfig(
+            Position.ABOVE,
+            Align.CENTER
+        ),
+        "NTMagazineLargeClockView" to ClockStyleConfig(
+            Position.BELOW,
+            Align.CENTER,
+            customHeightRes = R.dimen.large_clock_height
+        ),
+        "NTGraffitiClockView" to ClockStyleConfig(
+            Position.ABOVE,
+            Align.CENTER
+        ),
+        "NTGraffitiLargeClockView" to ClockStyleConfig(
+            Position.BELOW,
+            Align.CENTER,
+            customHeightRes = R.dimen.large_clock_height
         )
     )
 }

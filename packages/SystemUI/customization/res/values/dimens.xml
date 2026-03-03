@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="clock_stacked_text_size">120sp</dimen>
+    <dimen name="clock_stacked_line_spacing">8dp</dimen>
+    <dimen name="clock_staggered_text_size">110sp</dimen>
+    <dimen name="clock_staggered_offset">40dp</dimen>
+    <dimen name="clock_oneplus_time_size">80sp</dimen>
+    <dimen name="clock_oneplus_date_size">16sp</dimen>
+    <dimen name="clock_oneplus_week_size">16sp</dimen>
+    <dimen name="clock_oneplus_ampm_size">14sp</dimen>
+    <dimen name="clock_oneplus_ampm_offset">2dp</dimen>
+    <dimen name="clock_oneplus_spacing">4dp</dimen>
+    <dimen name="clock_stacked_large_height">240dp</dimen>
+</resources>

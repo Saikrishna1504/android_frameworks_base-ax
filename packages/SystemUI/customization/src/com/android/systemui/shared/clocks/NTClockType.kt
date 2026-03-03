@@ -69,6 +69,31 @@ enum class NTClockType(
         clockId = R.string.clock_id_axion_age,
         viewId = R.layout.clock_axion_age,
         largeViewId = R.layout.clock_axion_age_large
+    ),
+    NT_STACKED(
+        clockId = R.string.clock_id_nt_stacked,
+        viewId = R.layout.clock_nt_stacked,
+        largeViewId = R.layout.clock_nt_stacked_large
+    ),
+    NT_STAGGERED(
+        clockId = R.string.clock_id_nt_staggered,
+        viewId = R.layout.clock_nt_staggered,
+        largeViewId = R.layout.clock_nt_staggered_large
+    ),
+    NT_ONEPLUS(
+        clockId = R.string.clock_id_nt_oneplus,
+        viewId = R.layout.clock_nt_oneplus,
+        largeViewId = R.layout.clock_nt_oneplus_large
+    ),
+    NT_MAGAZINE(
+        clockId = R.string.clock_id_nt_magazine,
+        viewId = R.layout.clock_nt_magazine,
+        largeViewId = R.layout.clock_nt_magazine_large
+    ),
+    NT_GRAFFITI(
+        clockId = R.string.clock_id_nt_graffiti,
+        viewId = R.layout.clock_nt_graffiti,
+        largeViewId = R.layout.clock_nt_graffiti_large
     );
 
     companion object {

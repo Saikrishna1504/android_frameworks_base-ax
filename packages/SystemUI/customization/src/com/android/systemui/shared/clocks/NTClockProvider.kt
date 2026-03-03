@@ -71,6 +71,11 @@ class NTClockProvider(
             add(NTClockType.POLYLINE)
             add(NTClockType.CYBERPUNK)
             add(NTClockType.AXION_AGE)
+            add(NTClockType.NT_STACKED)
+            add(NTClockType.NT_STAGGERED)
+            add(NTClockType.NT_ONEPLUS)
+            add(NTClockType.NT_MAGAZINE)
+            add(NTClockType.NT_GRAFFITI)
         }
 
         return availableTypes.map { type ->

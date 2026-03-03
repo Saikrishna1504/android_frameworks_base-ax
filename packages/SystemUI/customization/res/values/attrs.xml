@@ -25,4 +25,8 @@
         <attr name="lockScreenWeight" format="integer" />
         <attr name="chargeAnimationDelay" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="NTClockView">
+        <attr name="isLarge" format="boolean" />
+    </declare-styleable>
 </resources>

@@ -40,6 +40,7 @@ abstract class BitmapDigitClockView @JvmOverloads constructor(
     protected open val digitSpacing: Float get() = context.scaledDimen(R.dimen.clock_padding)
     protected open val topMargin: Float get() = context.scaledDimen(R.dimen.clock_center_date_margin_top)
     protected open val clockOffset: Float get() = 0f
+    protected open val isVertical: Boolean get() = false
 
     protected open val useSeparator: Boolean get() = false
     protected open val separatorType: SeparatorType get() = SeparatorType.NONE
@@ -50,7 +51,7 @@ abstract class BitmapDigitClockView @JvmOverloads constructor(
     protected val paint = Paint(Paint.ANTI_ALIAS_FLAG)
     protected var digitBitmaps: Map<Char, Bitmap?> = emptyMap()
     protected var digitBitmapPairs: Map<Char, Pair<Lazy<Bitmap?>, Lazy<Bitmap?>>> = emptyMap()
-    private var bitmapsReady = false
+    protected var bitmapsReady = false
 
     override fun getTag(): String = tagName
 
@@ -78,6 +79,8 @@ abstract class BitmapDigitClockView @JvmOverloads constructor(
     }
 
     protected open fun getCustomSpacing(time: String, index: Int): Float = 0f
+    protected open fun getCustomDigitXOffset(time: String, index: Int): Float = 0f
+    protected open fun getCustomDigitYOffset(time: String, index: Int): Float = 0f
 
     protected open fun shouldDrawSeparator(time: String, index: Int): Boolean {
         if (!useSeparator) return false
@@ -109,7 +112,7 @@ abstract class BitmapDigitClockView @JvmOverloads constructor(
         loadBitmaps()
     }
 
-    private fun loadBitmaps() {
+    protected fun loadBitmaps() {
         if (!bitmapsReady) {
             if (digitResIdPairs.isNotEmpty()) {
                 digitBitmapPairs = createDigitBitmapPairs()
@@ -126,6 +129,17 @@ abstract class BitmapDigitClockView @JvmOverloads constructor(
         if (time.isEmpty() || !TextUtils.isDigitsOnly(time)) return
         
         val scale = digitScale
+        
+        paint.colorFilter = PorterDuffColorFilter(clockColor(), PorterDuff.Mode.SRC_IN)
+
+        if (isVertical) {
+            drawVerticalClock(canvas, time, scale)
+        } else {
+            drawHorizontalClock(canvas, time, scale)
+        }
+    }
+
+    private fun drawHorizontalClock(canvas: Canvas, time: String, scale: Float) {
         val totalWidth = computeTotalWidth(time, scale)
         if (totalWidth <= 0f) return
 
@@ -133,19 +147,18 @@ abstract class BitmapDigitClockView @JvmOverloads constructor(
         val finalWidth = min(totalWidth, availableWidth)
         val startX = (availableWidth - finalWidth) / 2f
         
-        paint.colorFilter = PorterDuffColorFilter(clockColor(), PorterDuff.Mode.SRC_IN)
-
         var x = startX
         time.forEachIndexed { index, char ->
             val useLightVariant = shouldUseLightVariant(time, index)
             val bitmap = getBitmapForDigit(char, useLightVariant) ?: return@forEachIndexed
             
             val centerY = (height / 2f) + topMargin
-            val yOffset = centerY - (bitmap.height * scale / 2) - clockOffset
+            val yOffset = centerY - (bitmap.height * scale / 2) - clockOffset + getCustomDigitYOffset(time, index)
+            val xOffset = x + getCustomDigitXOffset(time, index)
             
             val matrix = Matrix().apply {
                 postScale(scale, scale)
-                postTranslate(x, yOffset)
+                postTranslate(xOffset, yOffset)
             }
             canvas.drawBitmap(bitmap, matrix, paint)
             
@@ -160,6 +173,33 @@ abstract class BitmapDigitClockView @JvmOverloads constructor(
                 x += digitSpacing
             }
         }
+    }
+
+    private fun drawVerticalClock(canvas: Canvas, time: String, scale: Float) {
+        if (time.length < 4) return
+        val hours = time.substring(0, 2)
+        val minutes = time.substring(2, 4)
+
+        val centerY = (height / 2f) + topMargin
+        val lineSpacing = context.scaledDimen(R.dimen.clock_stacked_line_spacing)
+
+        fun drawRow(row: String, yPos: Float) {
+            val rowWidth = row.map { getBitmapForDigit(it)?.width?.times(scale) ?: 0f }.sum() + (row.length - 1) * digitSpacing
+            var x = (width - rowWidth) / 2f
+            row.forEach { char ->
+                val bitmap = getBitmapForDigit(char) ?: return@forEach
+                val matrix = Matrix().apply {
+                    postScale(scale, scale)
+                    postTranslate(x, yPos - (bitmap.height * scale / 2))
+                }
+                canvas.drawBitmap(bitmap, matrix, paint)
+                x += (bitmap.width * scale) + digitSpacing
+            }
+        }
+
+        drawRow(hours, centerY - lineSpacing / 2f - (getBitmapForDigit(hours[0])?.height?.times(scale)?.div(2) ?: 0f))
+        
+        drawRow(minutes, centerY + lineSpacing / 2f + (getBitmapForDigit(minutes[0])?.height?.times(scale)?.div(2) ?: 0f))
     }
 
     protected open fun drawSeparator(canvas: Canvas, x: Float, baseY: Float, digitHeight: Float): Float {
@@ -186,7 +226,7 @@ abstract class BitmapDigitClockView @JvmOverloads constructor(
         }
     }
 
-    private fun computeTotalWidth(time: String, scale: Float): Float {
+    protected fun computeTotalWidth(time: String, scale: Float): Float {
         var total = 0f
         time.forEachIndexed { index, char ->
             val useLightVariant = shouldUseLightVariant(time, index)

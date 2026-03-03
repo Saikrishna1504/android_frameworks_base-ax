@@ -67,6 +67,8 @@ abstract class NTClockView @JvmOverloads constructor(
     var format: String? = null
     var timeStr: String = ""
         internal set
+    var ampmStr: String = ""
+        internal set
     var locale: Locale = Locale.getDefault()
 
     var isDoze: Boolean = false
@@ -105,7 +107,7 @@ abstract class NTClockView @JvmOverloads constructor(
     val iconSize get() = context.scaledDimenInt(R.dimen.clock_icon_secondary_size)
     val elementSpacing get() = context.scaledDimen(R.dimen.clock_date_element_spacing)
 
-    protected val config: ClockConfigs.ClockStyleConfig?
+    protected open val config: ClockConfigs.ClockStyleConfig?
         get() {
             val className = this::class.simpleName ?: return null
             return ClockConfigs.clockConfigMap[className]
@@ -310,9 +312,13 @@ abstract class NTClockView @JvmOverloads constructor(
         format ?: return
         calendar.timeInMillis = System.currentTimeMillis()
         val newTime = SimpleDateFormat(format, Locale.ENGLISH).format(calendar.time)
+        val amPmPattern = if (DateFormat.is24HourFormat(context)) "" else "a"
+        val newAmPm = if (amPmPattern.isNotEmpty()) SimpleDateFormat(amPmPattern, locale).format(calendar.time) else ""
+        
         refreshDate()
-        if (timeStr != newTime) {
+        if (timeStr != newTime || ampmStr != newAmPm) {
             timeStr = newTime
+            ampmStr = newAmPm
             contentDescription = talkBackContent
             updateDisplayContent()
             invalidate()
