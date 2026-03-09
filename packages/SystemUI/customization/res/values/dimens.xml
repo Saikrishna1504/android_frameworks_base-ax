@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="clock_staggered_text_size">110sp</dimen>
+    <dimen name="clock_staggered_offset">40dp</dimen>
+    <dimen name="clock_stencil_text_size">100sp</dimen>
+    <dimen name="clock_stencil_date_size">22sp</dimen>
+</resources>

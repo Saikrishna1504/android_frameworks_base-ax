@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.android.systemui.shared.clocks.view.NTStencilClockView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:systemui="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/clock_nt_stencil"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    systemui:isLarge="false" />

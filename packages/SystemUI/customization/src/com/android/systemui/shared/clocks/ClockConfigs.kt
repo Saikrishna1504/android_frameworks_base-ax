@@ -129,6 +129,24 @@ object ClockConfigs {
             Align.CENTER,
             customHeightRes = R.dimen.large_clock_height,
             customDateMarginTop = R.dimen.large_clock_date_margin_top
+        ),
+        "NTStaggeredClockView" to ClockStyleConfig(
+            Position.ABOVE,
+            Align.CENTER
+        ),
+        "NTStaggeredLargeClockView" to ClockStyleConfig(
+            Position.BELOW,
+            Align.CENTER,
+            customHeightRes = R.dimen.large_clock_height
+        ),
+        "NTStencilClockView" to ClockStyleConfig(
+            Position.BELOW,
+            Align.CENTER
+        ),
+        "NTStencilLargeClockView" to ClockStyleConfig(
+            Position.BELOW,
+            Align.CENTER,
+            customHeightRes = R.dimen.large_clock_height
         )
     )
 }

@@ -69,6 +69,16 @@ enum class NTClockType(
         clockId = R.string.clock_id_axion_age,
         viewId = R.layout.clock_axion_age,
         largeViewId = R.layout.clock_axion_age_large
+    ),
+    NT_STAGGERED(
+        clockId = R.string.clock_id_nt_staggered,
+        viewId = R.layout.clock_nt_staggered,
+        largeViewId = R.layout.clock_nt_staggered_large
+    ),
+    NT_STENCIL(
+        clockId = R.string.clock_id_nt_stencil,
+        viewId = R.layout.clock_nt_stencil,
+        largeViewId = R.layout.clock_nt_stencil_large
     );
 
     companion object {
